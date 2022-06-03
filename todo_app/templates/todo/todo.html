@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block content %}
+	<h1>Todo App</h1>
+	<h2>Create Forms:</h2>
+
+	<form method="POST" action="">
+		{% csrf_token %}
+		{{ forms.as_p }}
+		<input type="submit" value="Submit">
+	</form>
+
+	<hr>
+	{% for todo in todos %}
+		<h1>{{ todo.author | capfirst }}</h1>
+		<h2>{{ todo.task }}</h2>
+		<h2>{{ todo.updated }}</h2>
+		<h3><a href="{% url 'update_todo' todo.id %}">Edit</a></h3>
+		<h3><a href="{% url 'delete_todo' todo.id %}">Delete</a></h3>
+		<hr>
+	{% endfor %}
+{% endblock content %}
