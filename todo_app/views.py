@@ -1,16 +1,34 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .models import TodoApp
 from .forms import TodoForm
 
 # Create your views here.
 def todo(request):
 	todos = TodoApp.objects.all()
-	forms = TodoForm()
+
+	try:
+		user = User.objects.get(username=request.user)
+		data = {
+			'author': user
+		}
+		forms = TodoForm(initial=data)
+	except:
+		print('continue')
+		forms = None
+		
+	
+
 	if request.method == 'POST':
-		print(request.POST)
-		forms = TodoForm(request.POST)
-		if forms.is_valid():
-			forms.save()
+		if 'add_todo_item' in request.POST:
+			print(request.POST)
+			forms = TodoForm(request.POST)
+			if forms.is_valid():
+				forms.save()
+				return redirect('todo')
+		elif 'done_todo_item' in request.POST:
+			print(request.POST)
 			return redirect('todo')
 
 	return render(request, 'todo/todo.html', {
@@ -18,6 +36,8 @@ def todo(request):
 		'forms': forms
 	})
 
+
+# @login_required(login_url="login_page")
 def update_todo(request, pk):
 	todo = TodoApp.objects.get(id=pk)
 	form = TodoForm(instance=todo)
@@ -30,6 +50,7 @@ def update_todo(request, pk):
 		'form': form
 	})
 
+# @login_required(login_url="login_page")
 def delete_todo(request, pk):
 	todo = TodoApp.objects.get(id=pk)
 	if request.method == 'POST':

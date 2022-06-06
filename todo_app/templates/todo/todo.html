@@ -2,19 +2,22 @@
 
 {% block content %}
 	<h1>Todo App</h1>
+	{% if request.user.is_authenticated %}
 	<h2>Create Forms:</h2>
-
 	<form method="POST" action="">
 		{% csrf_token %}
 		{{ forms.as_p }}
-		<input type="submit" value="Submit">
+		<input type="submit" name="add_todo_item" value="Submit">
 	</form>
-
+	{% endif %}
 	<hr>
 	{% for todo in todos %}
-		<h1>{{ todo.author | capfirst }}</h1>
+		<h1>@{{ todo.author | capfirst }}</h1>
 		<h2>{{ todo.task }}</h2>
-		<h2>{{ todo.updated }}</h2>
+		<h2>{{ todo.updated | timesince }}</h2>
+		<form action="" method="post">
+			<h1> Done {{ todo.done }} <input name="done_todo_item" type="checkbox"></h1>
+		</form>
 		<h3><a href="{% url 'update_todo' todo.id %}">Edit</a></h3>
 		<h3><a href="{% url 'delete_todo' todo.id %}">Delete</a></h3>
 		<hr>
