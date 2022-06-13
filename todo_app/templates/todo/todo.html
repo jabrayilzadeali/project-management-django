@@ -6,20 +6,28 @@
 	<h2>Create Forms:</h2>
 	<form method="POST" action="">
 		{% csrf_token %}
-		{{ forms.as_p }}
+		{% comment %} {{ forms.as_p }} {% endcomment %}
+		<input id="create-form-input" type="text" name="body" placeholder="Write your message here">
 		<input type="submit" name="add_todo_item" value="Submit">
 	</form>
 	{% endif %}
 	<hr>
 	{% for todo in todos %}
-		<h1>@{{ todo.author | capfirst }}</h1>
-		<h2>{{ todo.task }}</h2>
-		<h2>{{ todo.updated | timesince }}</h2>
-		<form action="" method="post">
-			<h1> Done {{ todo.done }} <input name="done_todo_item" type="checkbox"></h1>
-		</form>
-		<h3><a href="{% url 'update_todo' todo.id %}">Edit</a></h3>
-		<h3><a href="{% url 'delete_todo' todo.id %}">Delete</a></h3>
-		<hr>
+		<div class="todo-item">
+			<div class="name-updated">
+				<h3>@{{ todo.author | capfirst }}</h3>
+				<p>{{ todo.updated | timesince }}</p>
+			</div>
+			{% if todo.done == True %}
+				<h3><strike>{{ todo.task }}</strike></h3>
+			{% else %}
+				<h3>{{ todo.task }}</h3>
+			{% endif %}
+			<div class="actions">
+				<h3><a href="{% url 'done_todo' todo.id %}"><i class="fa-solid fa-check"></i></h3>
+				<h3><a href="{% url 'update_todo' todo.id %}"><i class="fa-solid fa-pen-to-square"></i></a></h3>
+				<h3><a href="{% url 'delete_todo' todo.id %}"><i class="fa-solid fa-trash-can"></i></a></h3>
+			</div>
+		</div>
 	{% endfor %}
 {% endblock content %}

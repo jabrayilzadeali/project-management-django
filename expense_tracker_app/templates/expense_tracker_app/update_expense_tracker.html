@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h1>Update Expense Tracker</h1>
+<form action="" method="post">
+	{% csrf_token %}
+	<label for="name">Name: </label>
+	<input type="text"  value="{{ expense.name }}" name="name" required id="name">
+	<br>
+	<br>
+	<label for="price">price: </label>
+	<input type="number" value="{{ expense.price }}" name="price" required id="price">
+	<br>
+	<br>
+	<label for="count">count: </label>
+	<input type="number" value="{{ expense.count }}" name="count" required id="count">
+	<p>Total: <span class="total"></span></p>
+	<br>
+	<br>
+	<div class="paid-users">
+		<div class="paid-user">
+			<label for="select-user">Select User</label>
+			<select name="select-user" id="select-user" required>
+				<option value="">--------</option>
+				{% comment %} <option required selected value="{{ user }}">{{ user }}</option> {% endcomment %}
+				{% for user in users %}
+					{% if who_paid_first.user == user %}
+						<option required selected value="{{ user }}">{{ user }}</option>
+					{% else %}
+						<option required value="{{ user }}">{{ user }}</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+			
+			<br>
+			
+			<label for="paid">Paid</label>
+			<input type="number" value="{{ who_paid_first.pay }}" name="paid" required id="paid" class='user-paid-input'>
+		</div>
+		{% for paid in who_paid_except_first %}
+			<div class="paid-user">
+				<label for="select-user">Select User</label>
+				<select name="select-user" id="select-user" required>
+					<option value="">--------</option>
+					{% comment %} <option required selected value="{{ user }}">{{ user }}</option> {% endcomment %}
+					{% for user in users %}
+						{% if paid.user == user %}
+							<option required selected value="{{ user }}">{{ user }}</option>
+						{% else %}
+							<option required value="{{ user }}">{{ user }}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+				
+				<br>
+				
+				<label for="paid">Paid</label>
+				<input type="number" value="{{ paid.pay }}" name="paid" required id="paid" class='user-paid-input'>
+				<input type="button" class="delete-added-user" value="Delete User">
+			</div>
+		{% endfor %}
+	</div>
+	<p>Left: <span class="left"></span></p>
+	<br>
+	<br>
+	<input type="button" value="Add Another User" id="add-another-user">
+	<input type="submit" value="Submit">
+</form>
+{% endblock content %}

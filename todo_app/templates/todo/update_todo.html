@@ -1,8 +1,9 @@
 {% extends 'main.html' %}
 {% block content %}
-	<form method="POST" action="">
+	<p>Edit Text</p>
+	<form class="update_todo" method="POST" action="">
 		{% csrf_token %}
-		{{ form.as_p }}
+		<input class="update-task" type="text" name="body" value="{{ task }}" maxlength="200" size="50">
 		<input type="submit" value="Submit">
 	</form>
 {% endblock content %}

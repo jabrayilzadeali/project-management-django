@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<h1>Do you want to Delete This <i>{{ todo }}</i>?</h1>
+<h1>Do you want to Delete This <i>{{ calendar }}</i>?</h1>
 <form method="POST" action="">
 	{% csrf_token %}
 	<a href="{{ request.META.HTTP_REFERER }}">Go Back</a>

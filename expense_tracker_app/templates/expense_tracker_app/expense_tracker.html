@@ -1,5 +1,102 @@
 {% extends 'main.html' %}
 
 {% block content %}
+
 <h1>Expense Tracker</h1>
+<form action="" method="post">
+	{% csrf_token %}
+	<label for="name">Name: </label>
+	<input type="text" name="name" required id="name">
+	<br>
+	<br>
+	<label for="price">price: </label>
+	<input type="number" name="price" required id="price">
+	<br>
+	<br>
+	<label for="count">count: </label>
+	<input type="number" name="count" required id="count">
+	<p>Total: <span class="total"></span></p>
+	<br>
+	<br>
+	<div class="paid-users">
+		<div class="paid-user">
+			<label for="select-user">Select User</label>
+			<select name="select-user" id="select-user" required>
+				<option value="">--------</option>
+				{% for user in users %}
+					<option required value="{{ user }}">{{ user }}</option>
+				{% endfor %}
+			</select>
+			
+			<br>
+			
+			<label for="paid">Paid</label>
+			<input type="number" name="paid" required id="paid" class='user-paid-input'>
+		</div>
+	</div>
+	<p>Left: <span class="left"></span></p>
+	<br>
+	<br>
+	<input type="button" value="Add Another User" id="add-another-user">
+	<input type="submit" value="Submit">
+</form>
+<br>
+<hr>
+<br>
+<table class="expense-tracker-table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Price</th>
+			<th>Count</th>
+			{% for user in users %}
+				<th>{{ user.username | capfirst }}</th>
+			{% endfor %}
+			<th>Edit</th>
+			<th>Delete</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for expense in expenses %}
+		<tr>
+			<td>{{ expense.name }}</td>
+			<td>{{ expense.price }}</td>
+			<td>{{ expense.count }}</td>
+			{% comment %} {% for paid in expense.who_paid.all %}
+				{% for user in users %}
+					{% if paid.user == user %}
+						<td>{{paid.user}} - {{paid.pay}} >\ {{user}}</td>
+					{% endif %}
+				{% endfor %}
+			{% endfor %} {% endcomment %}
+			{% for user in users %}
+				<td data-user="user">
+					{% for paid in expense.who_paid.all %}
+						{% if paid.user == user %}
+							{{ paid.pay }}
+						{% endif %}
+					{% endfor %}
+				</td>
+			{% endfor %}
+			<div class="actions">
+				<td><a href="{% url 'update_expense_tracker' expense.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+				<td><a href="{% url 'delete_expense_tracker' expense.id %}"><i class="fa-solid fa-trash-can"></i></a></td>
+			</div>
+			<td>{{ expense.total }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<script>
+	var expenses = `{{ expenses }}`
+	console.log('----------------------okay-------------------------------------------')
+	console.log(expenses)
+	for (let i = 0; i < expenses.length; i++) {
+		console.log(expenses[i])
+	}
+</script>
+
+
 {% endblock content %}

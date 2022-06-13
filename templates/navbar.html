@@ -1,20 +1,27 @@
 <header>
-	<h2><a href="{% url 'home' %}">Project Management</a></h2>
-	<nav>
+	{% comment %} <h2><a href="{% url 'home' %}">Project Management</a></h2> {% endcomment %}
+	<div class="mobile-nav">
+		<i id="toggle-nav-menu" class="fa fa-bars"></i>
+		<div class="login-logout">
+			{% if request.user.is_authenticated %}
+				<p>{{ request.user | capfirst }}</p>
+			{% else %}
+				<a href="{% url 'login_page' %}">Login</a>
+			{% endif %}
+		</div>
+	</div>
+
+	<nav class="nav">
 		<ul class="nav-links">
+			<li><a href="{% url 'home' %}">Home</a></li>
 			<li><a href="{% url 'todo' %}">Todo App</a></li>
 			<li><a href="{% url 'calendar' %}">Calendar App</a></li>
 			<li><a href="{% url 'expense_tracker' %}">Expense Tracker App</a></li>
+			{% if request.user.is_authenticated %}
+				<li class="logout"><a href="{% url 'logout_user' %}">Logout</a></li>
+			{% endif %}
 		</ul>
 	</nav>
 
 
-	<div>
-		{% if request.user.is_authenticated %}
-			<h3>Hello {{ request.user | capfirst }}</h3>
-			<a href="{% url 'logout_user' %}">Logout</a>
-		{% else %}
-			<a href="{% url 'login_page' %}">Login</a>
-		{% endif %}
-	</div>
 </header>
