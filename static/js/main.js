@@ -6,19 +6,18 @@ const navMenu = document.querySelector('.nav')
 const price = document.querySelector('#price')
 const count = document.querySelector('#count')
 const total = document.querySelector('.total')
+const paidUsersInTable = document.querySelectorAll('.paid-user-table')
+const allUsers = document.querySelectorAll('.all-users')
 
 
 const left = document.querySelector('.left')
 let userPaidInput = document.querySelectorAll('.user-paid-input')
 
-console.log(navMenu.style)
-console.log(window.innerWidth)
 
 let unique = 1
 
 toggleNavMenu.onclick = () => {
 	console.log('clicked')
-	// alert('okay')
 	if (navMenu.style.display === 'none' || navMenu.style.display === '') {
 		navMenu.style.animation = "slidein .4s"
 		console.log('if none')
@@ -62,16 +61,12 @@ addAnotherUser.onclick = () => {
 
 	newPaidUser.append(deleteButton)
 	paidUsers.append(newPaidUser)
-	// deleteButton.onclick = () => {
-	// 	newPaidUser.remove()
-	// }
 }
 
 setInterval(() => {
 	const deleteAddedUsers = document.querySelectorAll('.delete-added-user')
 	deleteAddedUsers.forEach(deleteAddedUser => {
 		deleteAddedUser.onclick = () => {
-			console.log('I am trying to delete you')
 			deleteAddedUser.parentNode.remove()
 		}}
 	)
@@ -91,6 +86,23 @@ setInterval(() => {
 	// console.log(totalPaid)
 	left.innerHTML = price.value * count.value - totalPaid
 
-
-
 }, 800)
+
+allUsers.forEach(user => {
+	let userTotalPaid = 0
+	paidUsersInTable.forEach(paidUser => {
+		// console.log(user)
+		// console.log(user.textContent.toLowerCase())
+		if (paidUser.dataset.user === user.textContent.toLowerCase()) {
+			// console.log(user.textContent, '-----------------------')
+			// console.log(paidUser.textContent.replaceAll(/\s/g,''))
+			let myExpense = paidUser.textContent.replaceAll(/\s/g,'')
+			// console.log(typeof(myExpense), myExpense)
+			// console.log(parseFloat(myExpense))
+
+			// userTotalPaid += myExpense
+		}
+	})
+	// console.log(userTotalPaid)
+	userTotalPaid = 0
+})

@@ -3,43 +3,48 @@
 {% block content %}
 
 <h1>Expense Tracker</h1>
-<form action="" method="post">
-	{% csrf_token %}
-	<label for="name">Name: </label>
-	<input type="text" name="name" required id="name">
-	<br>
-	<br>
-	<label for="price">price: </label>
-	<input type="number" name="price" required id="price">
-	<br>
-	<br>
-	<label for="count">count: </label>
-	<input type="number" name="count" required id="count">
-	<p>Total: <span class="total"></span></p>
-	<br>
-	<br>
-	<div class="paid-users">
-		<div class="paid-user">
-			<label for="select-user">Select User</label>
-			<select name="select-user" id="select-user" required>
-				<option value="">--------</option>
-				{% for user in users %}
-					<option required value="{{ user }}">{{ user }}</option>
-				{% endfor %}
-			</select>
-			
-			<br>
-			
-			<label for="paid">Paid</label>
-			<input type="number" name="paid" required id="paid" class='user-paid-input'>
+{% if request.user.is_authenticated %}
+	<form action="" method="post">
+		{% csrf_token %}
+		<label for="name">Name: </label>
+		<input type="text" name="name" required id="name">
+		<br>
+		<br>
+		<label for="price">price: </label>
+		<input type="number" name="price" required id="price">
+		<br>
+		<br>
+		<label for="count">count: </label>
+		<input type="number" name="count" required id="count">
+		<p>Total: <span class="total"></span></p>
+		<br>
+		<br>
+		<div class="paid-users">
+			<div class="paid-user">
+				<br>
+				<hr>
+				<br>
+				<label for="select-user">Select User</label>
+				<select name="select-user" id="select-user" required>
+					<option value="">--------</option>
+					{% for user in users %}
+						<option required value="{{ user }}">{{ user }}</option>
+					{% endfor %}
+				</select>
+				
+				<br>
+				
+				<label for="paid">Paid</label>
+				<input type="number" name="paid" required id="paid" class='user-paid-input'>
+			</div>
 		</div>
-	</div>
-	<p>Left: <span class="left"></span></p>
-	<br>
-	<br>
-	<input type="button" value="Add Another User" id="add-another-user">
-	<input type="submit" value="Submit">
-</form>
+		<p>Left: <span class="left"></span></p>
+		<br>
+		<br>
+		<input type="button" value="Add Another User" id="add-another-user" class="add-another-user">
+		<input type="submit" value="Submit">
+	</form>
+{% endif %}
 <br>
 <hr>
 <br>
@@ -50,7 +55,7 @@
 			<th>Price</th>
 			<th>Count</th>
 			{% for user in users %}
-				<th>{{ user.username | capfirst }}</th>
+				<th class="all-users">{{ user.username | capfirst }}</th>
 			{% endfor %}
 			<th>Edit</th>
 			<th>Delete</th>
@@ -71,7 +76,7 @@
 				{% endfor %}
 			{% endfor %} {% endcomment %}
 			{% for user in users %}
-				<td data-user="user">
+				<td data-user="{{ user }}" class="paid-user-table">
 					{% for paid in expense.who_paid.all %}
 						{% if paid.user == user %}
 							{{ paid.pay }}
@@ -87,15 +92,66 @@
 		</tr>
 		{% endfor %}
 	</tbody>
+	<tfoot class="total-user-paid">
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			{% for user in users %}
+				<td>
+					{% for paid_user in total_user_paid %}
+						{% if user == paid_user.user %}
+								{{ paid_user.total }}
+						{% endif %}
+					{% endfor %}
+				</td>
+			{% endfor %}
+			<td></td>
+			<td></td>
+			<td></td>
+
+			{% comment %} {% for paid_user in total_user_paid %}
+				<td>{{ paid_user }}</td>
+			{% endfor %} {% endcomment %}
+		</tr>
+	</tfoot>
 </table>
 
+{% comment %} {% for expense in expenses %}
+	{{ expense.who_paid.first.pay }}
+	<br>
+	{% for paid in expense.who_paid.all %}
+		{{ paid.user }}
+		{{ paid.pay }}
+	{% endfor %}
+{% endfor %} {% endcomment %}
+
+{% comment %} {{ expenses.second.who_paid }}
+{{ user_amount }} {% endcomment %}
+
+{% comment %} {{ user_amount.first.expenses.all }} {% endcomment %}
+<br>
+{% comment %} {{ expenses.who_paid }} {% endcomment %}
+{% comment %} {% for obj in users %}
+	{{ user_amount.total_user_price | total_user_price:obj }}
+{% endfor %} {% endcomment %}
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+{% comment %} {{ user_amount.objects.get(user=request.user) }} {% endcomment %}
 <script>
-	var expenses = `{{ expenses }}`
-	console.log('----------------------okay-------------------------------------------')
-	console.log(expenses)
-	for (let i = 0; i < expenses.length; i++) {
-		console.log(expenses[i])
-	}
+	const myExpenses = `{% autoescape off %}{{ expenses.first.price }}{% endautoescape %}`;
+
+	console.log(myExpenses)
 </script>
 
 
