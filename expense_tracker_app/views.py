@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import Expense, UserAmount
 from .forms import ExpenseForm, UserAmountForm
+from django.contrib import messages
 
 # Create your views here.
 def expense_tracker_app(request):
@@ -33,6 +34,14 @@ def expense_tracker_app(request):
 		count = request.POST.get('count')
 		selected_users = request.POST.getlist('select-user')
 		paid = request.POST.getlist('paid')
+		total_paid = sum(map(int, paid))
+		print(int(count) * int(price))
+		print(total_paid)
+		if (int(count) * int(price)) == total_paid:
+			print('We are Cool')
+		else:
+			messages.error(request, f'total should be: {int(count) * int(price)} but users paid: {total_paid}')
+			return redirect('expense_tracker')
 
 		# print(selected_users)
 		# print(paid)
@@ -70,10 +79,6 @@ def expense_tracker_app(request):
 				total += my_user.pay
 			total_user_paid.append({'user': my_paid_user.first().user, 'total': total})
 
-	# print(total_user_paid)
-	# print('------------------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-
-	# print(user_amount)
 	return render(request, 'expense_tracker_app/expense_tracker.html', {
 		'expenses': expenses,
 		'user_amount': user_amount,

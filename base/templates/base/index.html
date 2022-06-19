@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'main_home.html' %}
 
 {% block content%}
 <h1>
@@ -7,4 +7,10 @@
 		, {{ request.user | capfirst }}
 	{% endif %}
 </h1>
+
+<div class="links">
+	<a href="{% url 'todo' %}"><i class="fa-solid fa-list-check fa-3x"></i></a>
+	<a href="{% url 'calendar' %}"><i class="fa-solid fa-calendar-days fa-3x"></i></a>
+	<a href="{% url 'expense_tracker' %}"><i class="fa-solid fa-table-list fa-3x"></i></a>
+</div>
 {% endblock %}

@@ -81,8 +81,14 @@ input[type=submit] {
 }
 
 .add-another-user {
-  background-color: #4CAF50;
+	background-color: #23924d;
 }
+
+.add-another-user:hover {
+	background-color: #13da4e;
+	color: black;
+}
+
 
 input[type=submit]:hover {
   background-color: #45a049;
@@ -260,7 +266,7 @@ input[type=submit]:hover {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04AA6D;
+  background-color: #23924d;
   color: white;
 }
 

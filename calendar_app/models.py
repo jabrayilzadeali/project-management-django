@@ -13,10 +13,10 @@ class CalendarApp(models.Model):
 	time_start = models.TimeField(blank=True, null=True)
 	time_finish = models.TimeField(blank=True, null=True)
 	done = models.BooleanField(default=False)
+	recurrent = models.IntegerField(default=0)
 
 	def __str__(self):
 		return f'{self.task}, {self.author}'
-
 
 class Comments(models.Model):
 	author = models.ForeignKey(User, on_delete=models.CASCADE)

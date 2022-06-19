@@ -98,7 +98,7 @@
 			<td></td>
 			<td></td>
 			{% for user in users %}
-				<td>
+				<td data-user="{{ user }}" class="{{ user }} user-total-paid">
 					{% for paid_user in total_user_paid %}
 						{% if user == paid_user.user %}
 								{{ paid_user.total }}
@@ -137,6 +137,7 @@
 {% endfor %} {% endcomment %}
 
 
+<div class="who-owes-to-whom"></div>
 <br>
 <br>
 <br>

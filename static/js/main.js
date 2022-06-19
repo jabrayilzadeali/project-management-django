@@ -8,6 +8,8 @@ const count = document.querySelector('#count')
 const total = document.querySelector('.total')
 const paidUsersInTable = document.querySelectorAll('.paid-user-table')
 const allUsers = document.querySelectorAll('.all-users')
+const userTotalPaid = document.querySelectorAll('.user-total-paid')
+const whoOwesToWhom = document.querySelector('.who-owes-to-whom')
 
 
 const left = document.querySelector('.left')
@@ -106,3 +108,27 @@ allUsers.forEach(user => {
 	// console.log(userTotalPaid)
 	userTotalPaid = 0
 })
+
+userTotalPaidList = []
+userTotalPaid.forEach(user => {
+	console.log(user.outerText)
+	userTotalPaidList.push({
+		username: user.dataset.user,
+		total: user.outerText
+	})
+
+	console.log(userTotalPaidList)
+})
+
+userTotalPaidList.sort((user_1, user_2) => user_2.total - user_1.total)
+console.log(userTotalPaidList[0])
+
+userTotalPaidList.slice(1).forEach(element => {
+	console.log(element)
+	const p = document.createElement('p')
+	p.innerHTML = `${element.username} should give to ${userTotalPaidList[0].username}: ${userTotalPaidList[0].total - element.total}`
+	whoOwesToWhom.append(p)
+	
+})
+// Lowest to highest
+// let lowestToHighest = userTotalPaid.sort((a, b) => a - b);

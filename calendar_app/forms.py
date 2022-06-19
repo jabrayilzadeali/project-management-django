@@ -14,7 +14,7 @@ class TimeInput(forms.TimeInput):
 class CalendarForm(ModelForm):
 	class Meta:
 		model = CalendarApp
-		fields = ['author', 'task', 'for_who', 'date_added', 'time_start', 'time_finish']
+		fields = ['author', 'task', 'for_who', 'date_added', 'time_start', 'time_finish', 'recurrent']
 		widgets = {
 			'date_added': DateInput(),
 			'time_start': TimeInput(),
