@@ -6,37 +6,42 @@ first make sure python3 is installed
 then make sure pip is working(in windows there is checkbox you need to check to add path in installiation)
 (in linux you need to additionally install pip)
 [for installing pip in linux](https://www.tecmint.com/install-pip-in-linux/)
-#### ubuntu
+### ubuntu
 ```py
 apt install python3-pip
 ```
 
-#### Install Django
+### Install Django
 ```py
 pip install django
 ```
-#### in my system: 
+### in my system: 
 django-admin -- 4.0.4
 python --version => 3.10.4
-#### make migrations
+### make migrations
 ```py
 python manage.py makemigrations
 ```
 
-#### migrate
+### migrate
 ```py
 python manage.py migrate
 ```
 
 Note if you are on linux instead of 'python' use 'python3'
 
-#### createSuperUser
+### createSuperUser
 ```py
 python manage.py createsuperuser
 ```
 It will ask you create username, password etc. make sure you remember them!
 
-#### Run Server
+### Run Server
 ```py
 python manage.py runserver
 ```
+
+### for Django Reference
+[Python Django 7 hour Course by Dennis Ivy](https://www.youtube.com/watch?v=PtQiiknWUcI&t=12237s)
+[Django For Everybody - Full Python University Course by Chuck Severance](https://www.youtube.com/watch?v=o0XbHvKxw7Y)
+[Official Documentation](https://www.djangoproject.com/)
