@@ -1,2 +1,1 @@
-release: python manage.py migrate
-web: gunicorn myproject.wsgi --log-file -
+web: python manage.py migrate && python manage.py createsuperuser && gunicorn project_management.wsgi --log-file -
