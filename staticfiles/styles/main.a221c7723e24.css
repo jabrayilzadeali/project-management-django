@@ -1,0 +1,347 @@
+:root {
+	--main-bg-color: #2d2e31;
+	/* filter: invert(1) hue-rotate(180deg); */
+}
+
+* {
+	box-sizing: border-box;
+}
+body {
+	background-color: #f2f2f2;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+.container {
+	width: 90%;
+	margin: auto;
+	margin-top: 1rem;
+}
+
+/* Messages */
+.error {
+	background-color: red;
+	color: white;
+	width: 100%;
+	padding: 1rem 3rem;
+	margin: 0.5rem;
+	text-align: center;
+}
+
+/* Register */
+.register-method .helptext {
+	padding: 1rem 3rem;
+	width: 100%;
+}
+
+.register-method li {
+	padding: .5rem 3rem;
+	font-size: 1.2rem;
+}
+/* Forms style */
+input[type=text], input[type=date], input[type=time], input[type=number], input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+input[type=submit], .add-another-user, .delete-added-user {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit] {
+	background-color: var(--main-bg-color);
+}
+
+.delete-added-user {
+	background-color: #ff0000;
+}
+
+.add-another-user {
+	background-color: #23924d;
+}
+
+.add-another-user:hover {
+	background-color: #13da4e;
+	color: black;
+}
+
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+/* NavBar Styles */
+
+.nav {
+	display: none;
+	position: absolute;
+	width: 100%;
+	/* transition: all 3s; */
+	/* animation-duration: 1s; */
+	/* animation-name: slidein; */
+	animation: slidein 1s;
+
+}
+
+.fa-bars {
+	color: #cccecd;
+}
+
+.fa-check {
+	color: #008000;
+}
+
+.fa-pen-to-square {
+	color: #0000ff;
+}
+
+.fa-trash-can {
+	color: #ff0000
+}
+
+.nav-links > li {
+	background-color: #2d2e31;
+}
+
+.nav-links > li > a {
+	display: block;
+	color: #9c9c9c;
+	width: 100%;
+	height: 100%;
+	padding: 1rem;
+}
+
+.logout a {
+	padding: 1.5rem 1rem !important;
+	border-top: 0.001px solid #474747;
+}
+
+.nav-links > li:hover > a{
+	color: #fff;
+}
+
+.mobile-nav {
+	display: flex;
+	background-color: #2d2e31;
+	justify-content: space-between;
+	padding: 1rem;
+}
+
+.login-logout a{
+	color: #cccecd;
+}
+
+.login-logout p {
+	margin: 0;
+	color: #cccecd;
+}
+
+
+/* Todo App */
+.todo-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid var(--main-bg-color);
+	border-radius: 1rem;
+	padding: 10px;
+	margin: 1rem 0;
+}
+
+.name-updated p {
+	padding: 0;
+	margin: 0;
+}
+
+.name-updated h3 {
+	/* margin-right: 5rem; */
+	margin: 0 3rem 0 0;
+}
+
+.actions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.actions h3 {
+	padding-left: 5px;
+}
+
+.update-task {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+
+/* #create-form-input {
+	width: 80%;
+} */
+
+/* Calendar */
+.calendar {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	align-items: center;
+	/* display: flex;
+	justify-content: space-between;
+	align-items: center; */
+}
+
+.calendar .actions {
+	justify-content: end;
+}
+
+.calendar-data {
+	display: flex;
+	align-items: center;
+}
+
+.calendar-task {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-left: 1rem;
+	border-radius: 1rem;
+	border: 1px solid #000;
+	padding: 1rem;
+}
+
+.comment {
+	display: flex;
+	width: 90%;
+	margin: auto;
+	justify-content: space-between;
+	border-left: 1px solid #000;
+	padding: 1rem;
+}
+
+.add-comment {
+	width: 90%;
+	margin: auto;
+}
+
+/* Expense Tracker */
+.expense-tracker-table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.expense-tracker-table td, .expense-tracker-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+
+.expense-tracker-table tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+.expense-tracker-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #23924d;
+  color: white;
+}
+
+.total-user-paid {
+	background-color: var(--main-bg-color);
+	color: white;
+}
+
+
+
+/* Desktop screen */
+@media only screen and (min-width: 768px) {
+
+	.container {
+		width: 70%;
+		margin: auto;
+		margin-top: 1rem;
+	}
+	/* Desktop Navbar styles */
+	header {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		background-color: #2d2e31;
+	}
+
+	#toggle-nav-menu {
+		display: none;
+	}
+
+	.nav {
+		width: 100%;
+		display: block;
+		position: static;
+		animation: none;
+	}
+
+	.nav-links {
+		display: flex;
+		justify-content: end;
+	}
+
+	.logout a {
+		padding: 1rem !important;
+		border: none;
+	}
+
+}
+
+
+/* Animations */
+@keyframes slidein {
+	from {
+		width: 0;
+		opacity: 0;
+	}
+	20% {
+		opacity: 0;
+	}
+	to {
+		width: 100%;
+		opacity: 1;
+	}
+}
+
+@keyframes slideout {
+	from {
+		width: 100%;
+		opacity: 1;
+	}
+	60% {
+		opacity: 0;
+	}
+	to {
+		width: 0;
+		opacity: 0;
+	}
+}
