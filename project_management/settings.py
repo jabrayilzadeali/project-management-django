@@ -109,6 +109,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# heroku server 500 error
+# https://stackoverflow.com/questions/45391082/heroku-server-error-500-when-debug-false-whitenoise-could-not-find-style-c
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
