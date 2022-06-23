@@ -1,1 +1,1 @@
-web: python manage.py migrate && python manage.py createsuperuser && gunicorn project_management.wsgi --log-file -
+web: python manage.py migrate && gunicorn project_management.wsgi --log-file -
